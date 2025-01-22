@@ -13,70 +13,95 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #222;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fa; /* couleur de fond claire et apaisante */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(45deg, #ff0088, #ff8c00, #f8e71c, #38c5f3, #8a2be2);
-    background-size: 400% 400%;
-    animation: gradientAnimation 5s ease infinite;
+    color: #333; /* couleur du texte plus sombre pour un meilleur contraste */
 }
 
 header {
     position: absolute;
-    top: 20px;
+    top: 30px;
     text-align: center;
     width: 100%;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
+    color: #2b2b2b;
+    font-size: 28px;
+    font-weight: 600;
     z-index: 10;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
 .buttons-container {
     display: flex;
     justify-content: space-around;
-    width: 60%;
+    width: 50%;
 }
 
 .btn {
-    background-color: transparent;
-    border: 2px solid white;
-    color: white;
+    background-color: #ffffff; /* fond blanc pour les boutons */
+    border: 2px solid #007bff; /* bordure bleue */
+    color: #007bff; /* texte bleu */
     font-size: 18px;
-    padding: 20px 40px;
+    padding: 15px 30px;
     margin: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    transition: all 0.4s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ombre légère pour les boutons */
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.1);
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-2px); /* effet de levée discret */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* ombre un peu plus forte */
 }
 
 .logo {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     margin-right: 10px;
 }
 
+footer {
+    position: absolute;
+    bottom: 30px;
+    text-align: center;
+    width: 100%;
+    color: #666;
+    font-size: 14px;
+}
+
+footer p {
+    margin-top: 10px;
+}
+
+/* Ajout d'un fond simple et élégant avec des dégradés subtils */
 @keyframes gradientAnimation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+body {
+    background: linear-gradient(45deg, #ffffff, #f4f7fa);
+    background-size: 400% 400%;
+    animation: gradientAnimation 6s ease infinite;
+}
+
     </style>
 </head>
 <body>
