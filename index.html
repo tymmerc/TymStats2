@@ -5,118 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Site de Statistiques</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Fond sombre moderne */
-    color: #ffffff; /* Texte clair pour le contraste */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(45deg, #1e1e1e, #2b2b2b);
-}
-
-header {
-    margin-bottom: 50px;
-}
-
-h1 {
-    font-size: 40px;
-    color: #00d1b2; /* Accent turquoise pour mettre en valeur */
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-p {
-    font-size: 18px;
-    color: #ccc;
-}
-
-.buttons-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.btn {
-    background-color: #333; /* Boutons sombres */
-    color: #00d1b2; /* Texte turquoise pour une touche de couleur */
-    border: 2px solid #00d1b2;
-    font-size: 18px;
-    padding: 20px 40px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-}
-
-.btn:hover {
-    transform: translateY(-5px);
-    background-color: #00d1b2;
-    color: #121212;
-    box-shadow: 0 5px 15px rgba(0, 209, 178, 0.3);
-}
-
-.logo {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-}
-
-footer {
-    position: absolute;
-    bottom: 20px;
-    color: #ccc;
-    font-size: 14px;
-}
-
-footer p {
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-@media (max-width: 600px) {
-    .buttons-container {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 80%;
-        margin: 10px 0;
-    }
-}
-
-    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <h1>Mes Statistiques Personnelles</h1>
         <p>Suivez vos performances et vos données en temps réel</p>
     </header>
 
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#spotify">Spotify</a></li>
+            <li><a href="#lol">League of Legends</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2>À propos de moi</h2>
+        <p>Je suis un étudiant passionné par l'analyse de données et le développement web. Ce site présente mes compétences en intégration d'API et en gestion de données, notamment dans les domaines de la musique et des jeux vidéo.</p>
+    </section>
+
+    <!-- Buttons -->
     <div class="buttons-container">
         <button class="btn" id="spotifyBtn">
-            <img src="images/spotify-logo.png" alt="Spotify" class="logo">
+            <img src="spotify-logo.png" alt="Spotify" class="logo">
             Spotify
         </button>
         <button class="btn" id="lolBtn">
-            <img src="images/lol-logo.png" alt="League of Legends" class="logo">
+            <img src="lol-logo.png" alt="League of Legends" class="logo">
             League of Legends
         </button>
     </div>
+
+    <!-- Statistiques -->
+    <section id="spotify" class="section">
+        <h2>Statistiques Spotify</h2>
+        <p>Visualisez les dernières chansons écoutées et vos tendances musicales.</p>
+        <!-- Ici, tu peux ajouter un graphique ou des données statiques -->
+        <div class="stat-box">Graphiques Spotify à venir...</div>
+    </section>
+
+    <section id="lol" class="section">
+        <h2>Statistiques League of Legends</h2>
+        <p>Suivez vos performances en jeu, vos victoires, et plus encore !</p>
+        <!-- Ajout de statistiques League of Legends -->
+        <div class="stat-box">Graphiques LoL à venir...</div>
+    </section>
 
     <footer>
         <p>&copy; 2025 Mon Site de Statistiques | Développé par [Ton Nom]</p>
