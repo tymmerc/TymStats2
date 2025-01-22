@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Statistiques Personnelles</title>
+    <title>Mon Site de Statistiques</title>
     <style>
         * {
             margin: 0;
@@ -32,11 +32,6 @@
             font-size: 36px;
             font-weight: bold;
             margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 18px;
-            color: #ccc;
         }
 
         nav {
@@ -111,21 +106,6 @@
             box-shadow: 0 5px 15px rgba(0, 209, 178, 0.3);
         }
 
-        .logo {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .stat-box {
-            background-color: #333;
-            border-radius: 5px;
-            padding: 20px;
-            margin-top: 20px;
-            font-size: 18px;
-            color: #ccc;
-        }
-
         footer {
             text-align: center;
             padding: 20px;
@@ -139,23 +119,12 @@
             font-size: 14px;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .buttons-container {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 80%;
-                margin: 10px 0;
-            }
-        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <h1>Mes Statistiques Personnelles</h1>
+        <h1>Mon Site de Statistiques</h1>
         <p>Suivez vos performances et vos données en temps réel</p>
     </header>
 
@@ -183,77 +152,18 @@
         </ul>
     </section>
 
-    <!-- Social Links -->
-    <section id="social" class="section">
-        <h2>Mes Réseaux</h2>
-        <p>Connectez-vous avec moi sur mes réseaux sociaux :</p>
-        <ul>
-            <li><a href="https://www.linkedin.com/in/monprofil" target="_blank">LinkedIn</a></li>
-            <li><a href="https://twitter.com/monprofil" target="_blank">Twitter</a></li>
-        </ul>
-    </section>
-
     <!-- Buttons -->
     <div class="buttons-container">
-        <button class="btn" id="spotifyBtn">
-            <img src="spotify-logo.png" alt="Spotify" class="logo">
+        <button class="btn">
             Spotify
         </button>
-        <button class="btn" id="lolBtn">
-            <img src="lol-logo.png" alt="League of Legends" class="logo">
+        <button class="btn">
             League of Legends
         </button>
     </div>
 
-    <!-- Statistiques -->
-    <section id="spotify" class="section">
-        <h2>Statistiques Spotify</h2>
-        <p>Visualisez les dernières chansons écoutées et vos tendances musicales.</p>
-        <div class="stat-box" id="spotifyStats">Graphiques Spotify à venir...</div>
-    </section>
-
-    <section id="lol" class="section">
-        <h2>Statistiques League of Legends</h2>
-        <p>Suivez vos performances en jeu, vos victoires, et plus encore !</p>
-        <div class="stat-box" id="lolStats">Graphiques LoL à venir...</div>
-    </section>
-
     <footer>
         <p>&copy; 2025 Mon Site de Statistiques | Développé par [Ton Nom]</p>
     </footer>
-
-    <script>
-        // Ajoute des animations et du style dynamique avec JavaScript
-        document.getElementById("spotifyBtn").addEventListener("mouseover", function() {
-            this.style.backgroundColor = "#1DB954";  // Couleur Spotify au survol
-        });
-
-        document.getElementById("spotifyBtn").addEventListener("mouseout", function() {
-            this.style.backgroundColor = "#333";  // Couleur de fond par défaut
-        });
-
-        document.getElementById("lolBtn").addEventListener("mouseover", function() {
-            this.style.backgroundColor = "#FF6A00";  // Couleur LoL au survol
-        });
-
-        document.getElementById("lolBtn").addEventListener("mouseout", function() {
-            this.style.backgroundColor = "#333";  // Couleur de fond par défaut
-        });
-
-        // Animation des statistiques lors du clic sur les boutons
-        document.getElementById("spotifyBtn").addEventListener("click", function() {
-            document.getElementById("spotifyStats").innerHTML = "Chargement des données Spotify...";
-            setTimeout(() => {
-                document.getElementById("spotifyStats").innerHTML = "Voici vos dernières statistiques Spotify !";
-            }, 2000);
-        });
-
-        document.getElementById("lolBtn").addEventListener("click", function() {
-            document.getElementById("lolStats").innerHTML = "Chargement des données League of Legends...";
-            setTimeout(() => {
-                document.getElementById("lolStats").innerHTML = "Voici vos dernières statistiques LoL !";
-            }, 2000);
-        });
-    </script>
 </body>
 </html>
