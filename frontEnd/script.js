@@ -7,7 +7,7 @@ document.getElementById('spotifyBtn').addEventListener('click', function() {
             localStorage.setItem('spotifyStats', JSON.stringify(data));
 
             // Ensuite, redirige vers la page stats
-            window.location.href = 'stats.html';
+            window.location.href = 'backEnd/stats-spotify.html';
         })
         .catch(error => console.log('Erreur lors de la récupération des données:', error));
 });
