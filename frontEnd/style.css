@@ -22,6 +22,7 @@ body {
 
 /* Styles pour la barre de navigation */
 nav {
+    margin-top: 0px;
     width: 100%;  /* S'assurer que la navbar occupe toute la largeur */
     position: fixed; /* Fixe la navbar en haut de la page */
     top: 0;  /* Positionne la navbar en haut */
