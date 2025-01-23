@@ -29,33 +29,51 @@ nav {
     background-color: #333; /* Couleur de fond sombre */
     z-index: 1000; /* Assure que la navbar soit au-dessus des autres éléments */
     padding: 10px 0; /* Ajoute un peu de padding pour un meilleur rendu */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour un effet 3D */
 }
-
 
 nav ul {
     display: flex;
     justify-content: center; /* Centre les liens horizontalement */
     list-style: none;
+    margin: 0; /* Enlève la marge par défaut */
+    padding: 0; /* Enlève le padding par défaut */
 }
 
 nav ul li {
     margin: 0 20px; /* Espace entre les éléments de la navbar */
+    position: relative; /* Positionne les éléments pour les effets de survol */
 }
-
 
 nav ul li a {
     color: #00d1b2; /* Couleur du texte */
     text-decoration: none; /* Enlève la soulignure des liens */
     font-size: 18px;
     padding: 5px 10px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s; /* Ajoute une transition pour les couleurs */
 }
 
 nav ul li a:hover {
     background-color: #00d1b2; /* Couleur d'arrière-plan au survol */
     color: #121212; /* Change la couleur du texte au survol */
+    box-shadow: 0 2px 4px rgba(0, 209, 178, 0.2); /* Ajoute une ombre pour un effet 3D */
 }
 
+nav ul li a::before {
+    content: ""; /* Ajoute un contenu vide pour les effets de survol */
+    position: absolute; /* Positionne l'élément pour les effets de survol */
+    bottom: 0; /* Positionne l'élément en bas */
+    left: 0; /* Positionne l'élément à gauche */
+    width: 100%; /* Définit la largeur de l'élément */
+    height: 2px; /* Définit la hauteur de l'élément */
+    background-color: #00d1b2; /* Définit la couleur de l'élément */
+    transform: scaleX(0); /* Définit la transformation de l'élément */
+    transition: transform 0.3s; /* Définit la transition de l'élément */
+}
+
+nav ul li a:hover::before {
+    transform: scaleX(1); /* Définit la transformation de l'élément au survol */
+}
 
 /* Style du contenu de la page */
 header {
@@ -93,6 +111,7 @@ p {
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour un effet 3D */
 }
 
 .btn:hover {
