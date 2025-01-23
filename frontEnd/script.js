@@ -1,5 +1,4 @@
 document.getElementById('spotifyBtn').addEventListener('click', function() {
-    alert('Tu vas maintenant afficher tes statistiques Spotify!');
     fetch('https:/https://tymmerc.github.io/TymStats2/spotify-data')  // Remplace cette URL par l'URL réelle de ton API
     .then(response => response.json())
     .then(data => {
