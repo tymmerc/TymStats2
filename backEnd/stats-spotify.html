@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify Stats</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Spotify Statistics</h1>
+    <canvas id="spotifyChart" width="400" height="200"></canvas>
+
+    <script>
+        // Vérifie si les données existent dans le localStorage
+        const storedData = localStorage.getItem('spotifyStats');
+        if (storedData) {
+            const data = JSON.parse(storedData);
+            // Appelle la fonction pour créer le graphique avec les données
+            createChart(data);
+        } else {
+            console.log('Aucune donnée Spotify trouvée');
+        }
+
+        function createChart(data) {
+            const ctx = document.getElementById('spotifyChart').getContext('2d');
+            
+            // Extraire les données de l'API
+            const labels = data.songs.map(song => song.name);  // Noms des chansons
+            const streams = data.songs.map(song => song.streams);  // Nombre d'écoutes des chansons
+
+            // Données du graphique
+            const chartData = {
+                labels: labels,
+                datasets: [{
+                    label: 'Nombre d’écoutes',
+                    data: streams,
+                    backgroundColor: 'rgba(0, 209, 178, 0.6)',
+                    borderColor: 'rgba(0, 209, 178, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // Configuration du graphique
+            const config = {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.raw + ' écoutes';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            const spotifyChart = new Chart(ctx, config);
+        }
+    </script>
+</body>
+</html>
