@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212; /* Fond sombre moderne */
+    color: #ffffff; /* Texte clair pour le contraste */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(45deg, #1e1e1e, #2b2b2b);
+}
+
+header {
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 40px;
+    color: #00d1b2; /* Accent turquoise pour mettre en valeur */
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    color: #ccc;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    background-color: #333; /* Boutons sombres */
+    color: #00d1b2; /* Texte turquoise pour une touche de couleur */
+    border: 2px solid #00d1b2;
+    font-size: 18px;
+    padding: 20px 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    background-color: #00d1b2;
+    color: #121212;
+    box-shadow: 0 5px 15px rgba(0, 209, 178, 0.3);
+}
+
+.logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+footer p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .buttons-container {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 80%;
+        margin: 10px 0;
+    }
+}
