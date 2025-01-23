@@ -6,7 +6,7 @@
 }
 
 body {
-    margin-top: 60px; /* Ajuste ce nombre selon la hauteur de ta navbar */
+    margin-top: 50px; /* Ajuste ce nombre selon la hauteur de ta navbar */
     font-family: 'Roboto', sans-serif;
     background-color: #121212; /* Fond sombre moderne */
     color: #ffffff; /* Texte clair pour le contraste */
