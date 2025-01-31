@@ -55,47 +55,31 @@ function fetchSpotifyData(token) {
         .catch(error => console.log("Erreur lors de la récupération des données Spotify :", error));
 }
 
-/**
- * Fonction pour créer un graphique à barres avec Chart.js.
- * @param {Array} tracks - Liste des morceaux récupérés de Spotify.
- */
-function createChart(tracks) {
-    // Extraire les noms des morceaux (labels) et leur popularité (valeurs)
-    const labels = tracks.map(track => track.name);
-    const values = tracks.map(track => track.popularity);
+const labels = ["Chanson 1", "Chanson 2", "Chanson 3"];
+const values = [50, 75, 100];
 
-    // Configurer les données pour Chart.js
-    const data = {
-        labels: labels, // Noms des morceaux
+const ctx = document.getElementById('spotifyChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
         datasets: [{
             label: 'Popularité des morceaux',
-            data: values, // Popularité des morceaux
-            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Couleur des barres
-            borderColor: 'rgba(75, 192, 192, 1)', // Couleur des contours
-            borderWidth: 1 // Épaisseur des contours
+            data: values,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
         }]
-    };
-
-    // Configurer les options du graphique
-    const options = {
+    },
+    options: {
         responsive: true,
         scales: {
-            y: {
-                beginAtZero: true // Début à zéro pour l'axe Y
-            }
+            y: { beginAtZero: true }
         }
-    };
+    }
+});
 
-    // Obtenir le contexte du canvas où le graphique sera dessiné
-    const ctx = document.getElementById('spotifyChart').getContext('2d');
-
-    // Créer un nouveau graphique
-    new Chart(ctx, {
-        type: 'bar', // Type de graphique (barres)
-        data: data, // Données à afficher
-        options: options // Options de configuration
-    });
-}
 
         
     </script>
