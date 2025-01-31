@@ -1,4 +1,3 @@
-/* Styles globaux */
 * { 
     margin: 0;
     padding: 0;
@@ -7,8 +6,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Fond sombre moderne */
-    color: #ffffff; /* Texte clair pour le contraste */
+    background-color: #121212;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,70 +18,68 @@ body {
     background: linear-gradient(45deg, #1e1e1e, #2b2b2b);
 }
 
-/* Styles pour la barre de navigation */
 nav {
     margin-top: 0px;
-    width: 100%;  /* S'assurer que la navbar occupe toute la largeur */
-    position: fixed; /* Fixe la navbar en haut de la page */
-    top: 0;  /* Positionne la navbar en haut */
+    width: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
-    background-color: #333; /* Couleur de fond sombre */
-    z-index: 1000; /* Assure que la navbar soit au-dessus des autres éléments */
-    padding: 10px 0; /* Ajoute un peu de padding pour un meilleur rendu */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour un effet 3D */
+    background-color: #333;
+    z-index: 1000;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
     display: flex;
-    justify-content: center; /* Centre les liens horizontalement */
+    justify-content: center;
     list-style: none;
-    margin: 0; /* Enlève la marge par défaut */
-    padding: 0; /* Enlève le padding par défaut */
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li {
-    margin: 0 20px; /* Espace entre les éléments de la navbar */
-    position: relative; /* Positionne les éléments pour les effets de survol */
+    margin: 0 20px;
+    position: relative;
 }
 
 nav ul li a {
-    color: #00d1b2; /* Couleur du texte */
-    text-decoration: none; /* Enlève la soulignure des liens */
+    color: #00d1b2;
+    text-decoration: none;
     font-size: 18px;
     padding: 5px 10px;
-    transition: background-color 0.3s, color 0.3s; /* Ajoute une transition pour les couleurs */
+    transition: background-color 0.3s, color 0.3s;
 }
 
 nav ul li a:hover {
-    background-color: #00d1b2; /* Couleur d'arrière-plan au survol */
-    color: #121212; /* Change la couleur du texte au survol */
-    box-shadow: 0 2px 4px rgba(0, 209, 178, 0.2); /* Ajoute une ombre pour un effet 3D */
+    background-color: #00d1b2;
+    color: #121212;
+    box-shadow: 0 2px 4px rgba(0, 209, 178, 0.2);
 }
 
 nav ul li a::before {
-    content: ""; /* Ajoute un contenu vide pour les effets de survol */
-    position: absolute; /* Positionne l'élément pour les effets de survol */
-    bottom: 0; /* Positionne l'élément en bas */
-    left: 0; /* Positionne l'élément à gauche */
-    width: 100%; /* Définit la largeur de l'élément */
-    height: 2px; /* Définit la hauteur de l'élément */
-    background-color: #00d1b2; /* Définit la couleur de l'élément */
-    transform: scaleX(0); /* Définit la transformation de l'élément */
-    transition: transform 0.3s; /* Définit la transition de l'élément */
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #00d1b2;
+    transform: scaleX(0);
+    transition: transform 0.3s;
 }
 
 nav ul li a:hover::before {
-    transform: scaleX(1); /* Définit la transformation de l'élément au survol */
+    transform: scaleX(1);
 }
 
-/* Style du contenu de la page */
 header {
     margin-bottom: 50px;
 }
 
 h1 {
     font-size: 40px;
-    color: #00d1b2; /* Accent turquoise pour mettre en valeur */
+    color: #00d1b2;
     font-weight: 700;
     margin-bottom: 10px;
 }
@@ -99,8 +96,8 @@ p {
 }
 
 .btn {
-    background-color: #333; /* Boutons sombres */
-    color: #00d1b2; /* Texte turquoise pour une touche de couleur */
+    background-color: #333;
+    color: #00d1b2;
     border: 2px solid #00d1b2;
     font-size: 18px;
     padding: 20px 40px;
@@ -111,7 +108,7 @@ p {
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour un effet 3D */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
@@ -139,7 +136,6 @@ footer p {
     font-size: 14px;
 }
 
-/* Media query pour responsive */
 @media (max-width: 600px) {
     .buttons-container {
         flex-direction: column;
