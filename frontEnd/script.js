@@ -15,7 +15,6 @@ const scopes = [
 ].join(' ');
 
 const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
-
 // Redirection vers Spotify SEULEMENT après un clic sur le bouton
 document.getElementById('spotifyBtn').addEventListener('click', function() {
     window.location.href = authUrl;
