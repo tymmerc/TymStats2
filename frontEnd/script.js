@@ -55,7 +55,7 @@ if (code && returnedState === storedState) {
         .then(data => {
             if (data.access_token) {
                 localStorage.setItem('spotifyAccessToken', data.access_token);
-                window.location.href = './stats-spotify.html';
+                window.location.href = '/frontEnd/stats-spotify.html';
             } else {
                 console.error('Token non obtenu:', data);
             }
