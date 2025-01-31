@@ -17,8 +17,10 @@ const scopes = [
 //gen unique state for security
 const state = btoa(Math.random().toString());
 localStorage.setItem('spotifyAuthState', state);
+console.log('State generated and stored:', state);
 
 const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&state=${state}`;
+console.log('Auth URL:', authUrl);
 
 //redirect to spotify auth page
 const spotifyBtn = document.getElementById('spotifyBtn');
@@ -33,13 +35,17 @@ const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('code');
 const returnedState = urlParams.get('state');
 const storedState = localStorage.getItem('spotifyAuthState');
+console.log('Code:', code);
+console.log('Returned State:', returnedState);
+console.log('Stored State:', storedState);
 
 if (code && returnedState === storedState) {
     //del stocked state to prevent re use
     localStorage.removeItem('spotifyAuthState');
+    console.log('States match, proceeding with token exchange.');
 
     //trade code for access token in backend (on render)
-    fetch('https://tymstats2.onrender.com/get-token', {
+    fetch('https://tymstats2-backend.onrender.com/get-token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,6 +61,7 @@ if (code && returnedState === storedState) {
         .then(data => {
             if (data.access_token) {
                 localStorage.setItem('spotifyAccessToken', data.access_token);
+                console.log('Access token obtained and stored:', data.access_token);
                 window.location.href = 'stats-spotify.html';
             } else {
                 console.error('Token non obtenu:', data);
