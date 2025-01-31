@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Spotify Stats</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <h1>Spotify Statistics</h1>
+
+    <!--graph to show statistics-->
     <canvas id="spotifyChart" width="400" height="200"></canvas>
 
+    <!--tab of most listened titles-->
     <table id="songsTable" border="1">
         <thead>
             <tr>
-                <th>Titre</th>
-                <th>Nombre d'écoutes</th>
+                <th>Title</th>
+                <th>Streams</th>
             </tr>
         </thead>
         <tbody>
@@ -21,67 +26,64 @@
         </tbody>
     </table>
     <script>
-        // Vérifier si l'utilisateur a un access token
-    const token = localStorage.getItem('spotifyAccessToken');
 
-if (token) {
-    // Appeler l'API Spotify pour récupérer les morceaux
-    fetchSpotifyData(token);
-} else {
-    console.log("Aucun token trouvé. Veuillez vous connecter à Spotify.");
-}
+        //picking up spotify token from localStorage
+        const token = localStorage.getItem('spotifyAccessToken');
 
-/**
- * Fonction pour appeler l'API Spotify et récupérer les morceaux.
- * @param {string} token - Le jeton d'accès Spotify.
- */
-function fetchSpotifyData(token) {
-    fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
-        headers: {
-            'Authorization': `Bearer ${token}`
+        if (token) {
+            fetchSpotifyData(token);
+        } else {
+            console.log("No token found, pls connect to Spotify 👍 ");
         }
-    })
-        .then(response => response.json()) // Convertir la réponse en JSON
-        .then(data => {
-            console.log("Données Spotify reçues :", data);
 
-            if (data.items) {
-                // Créer un graphique avec les morceaux récupérés
-                createChart(data.items);
-            } else {
-                console.log("Erreur : Impossible de récupérer les morceaux.");
-            }
-        })
-        .catch(error => console.log("Erreur lors de la récupération des données Spotify :", error));
-}
-
-const labels = ["Chanson 1", "Chanson 2", "Chanson 3"];
-const values = [50, 75, 100];
-
-const ctx = document.getElementById('spotifyChart').getContext('2d');
-
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Popularité des morceaux',
-            data: values,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: { beginAtZero: true }
+        //func to pick up spotify data
+        function fetchSpotifyData(accessToken) {
+            fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+                .then(Response => response.json())
+                .then(data => {
+                    if (data.items) {
+                        popuateTable(data.items);
+                        renderChart(data.items);
+                    } else {
+                        console.log("Data not available :(");
+                    }
+                })
+                .catch(error => console.error('Uh, error', error));
         }
-    }
-});
+
+        //func to show graphic of steams
+        function renderChart(tracks){
+            const trackNames = track.map(track=>track.name);
+            const popularities = tracks.map(track => track.popularity);
+
+            const ctx = document.getElementById('spotifyChart').getContext('2d');
+            new Chart(ctx, {
+                tyme:'bar',
+                data : {
+                    labels: trackNames,
+                    datasets: [{
+                        label: 'streams popularity',
+                        data: popularities,
+                        backgroundCOlor:'rgba(75, 192, 192, 0.5)'
+                    }]
+                },
+                options:{
+                    responsive:true,
+                    plugins: {
+                        legend:{
+                            display:true
+                        }
+                    }
+                }
+            })
+        }
 
 
-        
     </script>
 </body>
+
 </html>
