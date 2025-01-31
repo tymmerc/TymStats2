@@ -1,5 +1,5 @@
-const clientId = '0e7b73a206b7410091a17ce856944b0a';  // Récupéré depuis ton application Spotify
-const redirectUri = 'https://tymmerc.github.io/TymStats2';  // Remplace par ton URL
+const clientId = '0e7b73a206b7410091a17ce856944b0a';  // Ton client ID Spotify
+const redirectUri = 'https://tymmerc.github.io/TymStats2';  // Doit être enregistré dans le Dashboard Spotify
 const scopes = [
     'user-top-read',
     'user-library-read',
@@ -12,25 +12,41 @@ const scopes = [
     'user-read-currently-playing',
     'user-read-recently-played',
     'streaming'
-].join(' ');  // Convertir le tableau de scopes en une chaîne de caractères
+].join(' ');
 
 const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
 
-window.location.href = authUrl;  // Redirige l'utilisateur vers Spotify pour l'authentification
-
+// Redirection vers Spotify SEULEMENT après un clic sur le bouton
 document.getElementById('spotifyBtn').addEventListener('click', function() {
-    // Redirige vers stats.html et passe les données de l'API via localStorage
-    fetch('https://tymmerc.github.io/TymStats2/spotify-data')
-        .then(response => response.json())
-        .then(data => {
-            // Sauvegarder les données dans localStorage
-            localStorage.setItem('spotifyStats', JSON.stringify(data));
-
-            // Ensuite, redirige vers la page stats
-            window.location.href = './backEnd/stats-spotify.html';
-        })
-        .catch(error => console.log('Erreur lors de la récupération des données:', error));
+    window.location.href = authUrl;
 });
+
+// Une fois l'utilisateur redirigé, récupérer le code dans l'URL
+const urlParams = new URLSearchParams(window.location.search);
+const code = urlParams.get('code');
+
+if (code) {
+    // Échanger le code contre un access token
+    fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: redirectUri,
+            client_id: clientId,
+            client_secret: 'TON_CLIENT_SECRET' // ⚠️ Ne pas exposer en frontend (utiliser un serveur backend)
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        localStorage.setItem('spotifyAccessToken', data.access_token);
+        window.location.href = './backEnd/stats-spotify.html';
+    })
+    .catch(error => console.log('Erreur lors de l’obtention du token:', error));
+}
 
 
 

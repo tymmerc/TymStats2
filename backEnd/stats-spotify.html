@@ -10,29 +10,46 @@
     <canvas id="spotifyChart" width="400" height="200"></canvas>
 
     <script>
-        // Vérifie si les données existent dans le localStorage
-        const storedData = localStorage.getItem('spotifyStats');
-        if (storedData) {
-            const data = JSON.parse(storedData);
-            // Appelle la fonction pour créer le graphique avec les données
-            createChart(data);
+        // Récupérer l'access token depuis le stockage local
+        const token = localStorage.getItem('spotifyAccessToken');
+
+        if (token) {
+            fetchSpotifyData(token);
         } else {
-            console.log('Aucune donnée Spotify trouvée');
+            console.log("Aucun token trouvé. Veuillez vous connecter à Spotify.");
         }
 
-        function createChart(data) {
+        function fetchSpotifyData(token) {
+            fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Données Spotify reçues :", data);
+                if (data.items) {
+                    createChart(data.items);
+                } else {
+                    console.log("Erreur : Impossible de récupérer les morceaux.");
+                }
+            })
+            .catch(error => console.log("Erreur lors de la récupération des données Spotify :", error));
+        }
+
+        function createChart(tracks) {
             const ctx = document.getElementById('spotifyChart').getContext('2d');
-            
-            // Extraire les données de l'API
-            const labels = data.songs.map(song => song.name);  // Noms des chansonss
-            const streams = data.songs.map(song => song.streams);  // Nombre d'écoutes des chansons
+
+            // Extraire les noms des chansons et leur popularité
+            const labels = tracks.map(track => track.name);  // Noms des chansons
+            const popularity = tracks.map(track => track.popularity);  // Score de popularité (0-100)
 
             // Données du graphique
             const chartData = {
                 labels: labels,
                 datasets: [{
-                    label: 'Nombre d’écoutes',
-                    data: streams,
+                    label: 'Popularité des chansons',
+                    data: popularity,
                     backgroundColor: 'rgba(0, 209, 178, 0.6)',
                     borderColor: 'rgba(0, 209, 178, 1)',
                     borderWidth: 1
@@ -52,7 +69,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(tooltipItem) {
-                                    return tooltipItem.raw + ' écoutes';
+                                    return tooltipItem.raw + ' points de popularité';
                                 }
                             }
                         }
@@ -65,7 +82,7 @@
                 }
             };
 
-            const spotifyChart = new Chart(ctx, config);
+            new Chart(ctx, config);
         }
     </script>
 </body>
