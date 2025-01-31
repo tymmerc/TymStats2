@@ -94,6 +94,7 @@ p {
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -110,6 +111,8 @@ p {
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin: 10px;
 }
 
 .btn:hover {
