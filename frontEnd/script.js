@@ -39,7 +39,7 @@ if (code && returnedState === storedState) {
     localStorage.removeItem('spotifyAuthState');
 
     //trade code for access token in backend (on render)
-    fetch('https://your-app-name.onrender.com/get-token', {
+    fetch('https://tymstats2.onrender.com/get-token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
