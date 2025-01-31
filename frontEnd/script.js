@@ -1,5 +1,5 @@
 const clientId = '0e7b73a206b7410091a17ce856944b0a';  // Ton client ID Spotify
-const redirectUri = 'https://tymmerc.github.io/TymStats2';  // Doit être enregistré dans le Dashboard Spotify
+const redirectUri = 'https://tymmerc.github.io/TymStats2/';  // Doit être enregistré dans le Dashboard Spotify
 const scopes = [
     'user-top-read',
     'user-library-read',
