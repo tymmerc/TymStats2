@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: TymStats2-backend
+    env: node
+    rootDir: ./  
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SPOTIFY_CLIENT_ID
+        value: 0e7b73a206b7410091a17ce856944b0a
+      - key: SPOTIFY_CLIENT_SECRET
+        value: 90615a3d04ad4771bbc03d94f22b4b10
+      - key: REDIRECT_URI
+        value: https://tymmerc.github.io/TymStats2/
