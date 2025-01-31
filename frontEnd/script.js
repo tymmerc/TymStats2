@@ -40,6 +40,7 @@ console.log('Returned State:', returnedState);
 console.log('Stored State:', storedState);
 
 if (code && returnedState === storedState) {
+    
     //del stocked state to prevent re use
     localStorage.removeItem('spotifyAuthState');
     console.log('States match, proceeding with token exchange.');

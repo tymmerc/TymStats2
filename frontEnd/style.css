@@ -1,4 +1,5 @@
-* { 
+/* Existing styles */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -150,4 +151,58 @@ footer p {
         flex-direction: column;
         gap: 20px;
     }
+}
+
+/* New styles for About page */
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-direction: column;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 1rem;
+}
+
+.description h2 {
+    margin: 0;
+    font-size: 32px;
+    color: #00d1b2;
+}
+
+.skills-list, .projects-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+.skill, .project {
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #00d1b2;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill:hover, .project:hover {
+    transform: translateY(-5px);
+    background-color: #00d1b2;
+    box-shadow: 0 5px 15px rgba(0, 209, 178, 0.3);
+}
+
+.contact-info {
+    margin-top: 2rem;
+}
+
+.contact-info p {
+    margin: 10px 0;
 }
