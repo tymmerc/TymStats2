@@ -28,7 +28,7 @@ if (spotifyBtn) {
     });
 }
 
-//pick up code and state on url 
+//pick up code and state on url
 const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('code');
 const returnedState = urlParams.get('state');
@@ -65,9 +65,6 @@ if (code && returnedState === storedState) {
     console.error("Mismatch de state, possible attaque CSRF.");
 }
 
-
-
 document.getElementById('lolBtn').addEventListener('click', function () {
     alert('Tu vas maintenant afficher tes statistiques League of Legends!');
-
 });
