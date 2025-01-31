@@ -9,81 +9,95 @@
     <h1>Spotify Statistics</h1>
     <canvas id="spotifyChart" width="400" height="200"></canvas>
 
+    <table id="songsTable" border="1">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Nombre d'écoutes</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
     <script>
-        // Récupérer l'access token depuis le stockage local
-        const token = localStorage.getItem('spotifyAccessToken');
+        // Vérifier si l'utilisateur a un access token
+    const token = localStorage.getItem('spotifyAccessToken');
 
-        if (token) {
-            fetchSpotifyData(token);
-        } else {
-            console.log("Aucun token trouvé. Veuillez vous connecter à Spotify.");
+if (token) {
+    // Appeler l'API Spotify pour récupérer les morceaux
+    fetchSpotifyData(token);
+} else {
+    console.log("Aucun token trouvé. Veuillez vous connecter à Spotify.");
+}
+
+/**
+ * Fonction pour appeler l'API Spotify et récupérer les morceaux.
+ * @param {string} token - Le jeton d'accès Spotify.
+ */
+function fetchSpotifyData(token) {
+    fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
+        headers: {
+            'Authorization': `Bearer ${token}`
         }
+    })
+        .then(response => response.json()) // Convertir la réponse en JSON
+        .then(data => {
+            console.log("Données Spotify reçues :", data);
 
-        function fetchSpotifyData(token) {
-            fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Données Spotify reçues :", data);
-                if (data.items) {
-                    createChart(data.items);
-                } else {
-                    console.log("Erreur : Impossible de récupérer les morceaux.");
-                }
-            })
-            .catch(error => console.log("Erreur lors de la récupération des données Spotify :", error));
+            if (data.items) {
+                // Créer un graphique avec les morceaux récupérés
+                createChart(data.items);
+            } else {
+                console.log("Erreur : Impossible de récupérer les morceaux.");
+            }
+        })
+        .catch(error => console.log("Erreur lors de la récupération des données Spotify :", error));
+}
+
+/**
+ * Fonction pour créer un graphique à barres avec Chart.js.
+ * @param {Array} tracks - Liste des morceaux récupérés de Spotify.
+ */
+function createChart(tracks) {
+    // Extraire les noms des morceaux (labels) et leur popularité (valeurs)
+    const labels = tracks.map(track => track.name);
+    const values = tracks.map(track => track.popularity);
+
+    // Configurer les données pour Chart.js
+    const data = {
+        labels: labels, // Noms des morceaux
+        datasets: [{
+            label: 'Popularité des morceaux',
+            data: values, // Popularité des morceaux
+            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Couleur des barres
+            borderColor: 'rgba(75, 192, 192, 1)', // Couleur des contours
+            borderWidth: 1 // Épaisseur des contours
+        }]
+    };
+
+    // Configurer les options du graphique
+    const options = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true // Début à zéro pour l'axe Y
+            }
         }
+    };
 
-        function createChart(tracks) {
-            const ctx = document.getElementById('spotifyChart').getContext('2d');
+    // Obtenir le contexte du canvas où le graphique sera dessiné
+    const ctx = document.getElementById('spotifyChart').getContext('2d');
 
-            // Extraire les noms des chansons et leur popularité
-            const labels = tracks.map(track => track.name);  // Noms des chansons
-            const popularity = tracks.map(track => track.popularity);  // Score de popularité (0-100)
+    // Créer un nouveau graphique
+    new Chart(ctx, {
+        type: 'bar', // Type de graphique (barres)
+        data: data, // Données à afficher
+        options: options // Options de configuration
+    });
+}
 
-            // Données du graphique
-            const chartData = {
-                labels: labels,
-                datasets: [{
-                    label: 'Popularité des chansons',
-                    data: popularity,
-                    backgroundColor: 'rgba(0, 209, 178, 0.6)',
-                    borderColor: 'rgba(0, 209, 178, 1)',
-                    borderWidth: 1
-                }]
-            };
-
-            // Configuration du graphique
-            const config = {
-                type: 'bar',
-                data: chartData,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return tooltipItem.raw + ' points de popularité';
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            };
-
-            new Chart(ctx, config);
-        }
+        
     </script>
 </body>
 </html>
