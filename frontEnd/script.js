@@ -1,6 +1,6 @@
-// Spotify
-const spotifyClientId = '0e7b73a206b7410091a17ce856944b0a'; // Your Spotify Client ID
-const spotifyRedirectUri = 'https://tymmerc.github.io/TymStats2/'; // On Spotify dashboard
+//spotify
+const spotifyClientId = '0e7b73a206b7410091a17ce856944b0a'; //your Spotify Client ID
+const spotifyRedirectUri = 'https://tymmerc.github.io/TymStats2/'; //on Spotify dashboard
 const spotifyScopes = [
     'user-top-read',
     'user-library-read',
@@ -15,7 +15,7 @@ const spotifyScopes = [
     'streaming'
 ].join(' ');
 
-// Generate unique state for security
+//generate unique state for security
 const state = btoa(Math.random().toString());
 localStorage.setItem('spotifyAuthState', state);
 console.log('State generated and stored:', state);
@@ -23,7 +23,7 @@ console.log('State generated and stored:', state);
 const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${spotifyClientId}&response_type=code&redirect_uri=${encodeURIComponent(spotifyRedirectUri)}&scope=${encodeURIComponent(spotifyScopes)}&state=${state}`;
 console.log('Auth URL:', spotifyAuthUrl);
 
-// Redirect to Spotify auth page
+//redirect to Spotify auth page
 const spotifyBtn = document.getElementById('spotifyBtn');
 if (spotifyBtn) {
     spotifyBtn.addEventListener('click', function () {
@@ -31,7 +31,7 @@ if (spotifyBtn) {
     });
 }
 
-// Pick up code and state on URL
+//pick up code and state on URL
 const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('code');
 const returnedState = urlParams.get('state');
@@ -41,11 +41,11 @@ console.log('Returned State:', returnedState);
 console.log('Stored State:', storedState);
 
 if (code && returnedState === storedState) {
-    // Delete stored state to prevent reuse
+    //delete stored state to prevent reuse
     localStorage.removeItem('spotifyAuthState');
     console.log('States match, proceeding with token exchange.');
 
-    // Trade code for access token in backend (on Render)
+    //trade code for access token in backend (on Render)
     fetch('https://tymstats2-backend.onrender.com/get-token', {
         method: 'POST',
         headers: {
