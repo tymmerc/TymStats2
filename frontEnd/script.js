@@ -1,6 +1,6 @@
 //spotify
 const spotifyClientId = '0e7b73a206b7410091a17ce856944b0a'; //your Spotify Client ID
-const spotifyRedirectUri = 'https://tymmerc.github.io/TymStats2/'; //on Spotify dashboard
+const spotifyRedirectUri = 'https://tymmerc.github.io/TymStats2/frontEnd/stats-spotify.html'; //on Spotify dashboard
 const spotifyScopes = [
     'user-top-read',
     'user-library-read',
@@ -72,7 +72,7 @@ if (code && returnedState === storedState) {
 } else if (returnedState !== storedState) {
     console.error("State mismatch, possible CSRF attack.");
 }
-
+/*
 // League of Legends (Placeholder)
 document.getElementById('lolBtn').addEventListener('click', function () {
     alert('Connect with League of Legends is not implemented yet.');
@@ -98,4 +98,4 @@ const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${gith
 
 document.getElementById('githubBtn').addEventListener('click', function () {
     window.location.href = githubAuthUrl;
-});
+});*/
