@@ -1,89 +1,107 @@
 <!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
     <title>Spotify Stats</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-
-<body>
+  </head>
+  <body>
     <h1>Spotify Statistics</h1>
 
-    <!--graph to show statistics-->
+    <!-- Chart to display statistics -->
     <canvas id="spotifyChart" width="400" height="200"></canvas>
-    
-    <!--tab of most listened titles-->
+
+    <!-- Table for most listened tracks -->
     <table id="songsTable" border="1">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Streams</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Streams Popularity</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
+
     <script>
+      // Check if the token is already stored
+      let accessToken = localStorage.getItem("spotifyAccessToken");
 
-        //picking up spotify token from localStorage
-        const token = localStorage.getItem('spotifyAccessToken');
+      // Retrieve a new token from the URL if available
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const newToken = hashParams.get("access_token");
 
-        if (token) {
-            fetchSpotifyData(token);
-        } else {
-            console.log("No token found, pls connect to Spotify 👍 ");
-        }
+      if (newToken) {
+        accessToken = newToken;
+        localStorage.setItem("spotifyAccessToken", accessToken);
+        console.log("Token retrieved and stored:", accessToken);
+      }
 
-        //func to pick up spotify data
-        function fetchSpotifyData(accessToken) {
-            fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            })
-                .then(Response => response.json())
-                .then(data => {
-                    if (data.items) {
-                        popuateTable(data.items);
-                        renderChart(data.items);
-                    } else {
-                        console.log("Data not available :(");
-                    }
-                })
-                .catch(error => console.error('Uh, error', error));
-        }
+      // Ensure we have a valid token before fetching Spotify data
+      if (accessToken) {
+        fetchSpotifyData(accessToken);
+      } else {
+        console.error("No token available to fetch Spotify data.");
+      }
 
-        //func to show graphic of steams
-        function renderChart(tracks){
-            const trackNames = track.map(track=>track.name);
-            const popularities = tracks.map(track => track.popularity);
+      // Function to fetch Spotify data
+      function fetchSpotifyData(accessToken) {
+        fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.items) {
+              populateTable(data.items);
+              renderChart(data.items);
+            } else {
+              console.log("No data available :(");
+            }
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      }
 
-            const ctx = document.getElementById('spotifyChart').getContext('2d');
-            new Chart(ctx, {
-                tyme:'bar',
-                data : {
-                    labels: trackNames,
-                    datasets: [{
-                        label: 'streams popularity',
-                        data: popularities,
-                        backgroundCOlor:'rgba(75, 192, 192, 0.5)'
-                    }]
-                },
-                options:{
-                    responsive:true,
-                    plugins: {
-                        legend:{
-                            display:true
-                        }
-                    }
-                }
-            })
-        }
+      // Function to populate the table with top tracks
+      function populateTable(tracks) {
+        const tableBody = document.querySelector("#songsTable tbody");
+        tableBody.innerHTML = ""; // Clear table before inserting new data
 
+        tracks.forEach((track) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `<td>${track.name}</td><td>${track.popularity}</td>`;
+          tableBody.appendChild(row);
+        });
+      }
 
+      // Function to render a bar chart with track popularity
+      function renderChart(tracks) {
+        const trackNames = tracks.map((track) => track.name);
+        const popularities = tracks.map((track) => track.popularity);
+
+        const ctx = document.getElementById("spotifyChart").getContext("2d");
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: trackNames,
+            datasets: [
+              {
+                label: "Streams Popularity",
+                data: popularities,
+                backgroundColor: "rgba(75, 192, 192, 0.5)",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                display: true,
+              },
+            },
+          },
+        });
+      }
     </script>
-</body>
-
+  </body>
 </html>

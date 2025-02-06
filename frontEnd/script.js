@@ -1,5 +1,5 @@
 //spotify
-const spotifyClientId = '0e7b73a206b7410091a17ce856944b0a'; //your Spotify Client ID
+const spotifyClientId = '0e7b73a206b7410091a17ce856944b0a'; //Spotify Client ID
 const spotifyRedirectUri = 'https://tymmerc.github.io/TymStats2/frontEnd/stats-spotify.html'; //on Spotify dashboard
 const spotifyScopes = [
     'user-top-read',
@@ -20,7 +20,7 @@ const state = btoa(Math.random().toString());
 localStorage.setItem('spotifyAuthState', state);
 console.log('State generated and stored:', state);
 
-const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${spotifyClientId}&response_type=code&redirect_uri=${encodeURIComponent(spotifyRedirectUri)}&scope=${encodeURIComponent(spotifyScopes)}&state=${state}`;
+const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${spotifyClientId}&response_type=token&redirect_uri=${encodeURIComponent(spotifyRedirectUri)}&scope=${encodeURIComponent(spotifyScopes)}`;
 console.log('Auth URL:', spotifyAuthUrl);
 
 //redirect to Spotify auth page
