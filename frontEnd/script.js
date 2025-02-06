@@ -20,9 +20,7 @@ const state = btoa(Math.random().toString());
 localStorage.setItem('spotifyAuthState', state);
 console.log('State generated and stored:', state);
 
-const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${spotifyClientId}&response_type=code&redirect_uri=${encodeURIComponent(spotifyRedirectUri)}&scope=${encodeURIComponent(spotifyScopes)}&state=${state}`;console.log('Auth URL:', spotifyAuthUrl);
-
-//redirect to Spotify auth page
+const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${spotifyClientId}&response_type=code&redirect_uri=${encodeURIComponent(spotifyRedirectUri)}&scope=${encodeURIComponent(spotifyScopes)}&state=${state}`;//redirect to Spotify auth page
 const spotifyBtn = document.getElementById('spotifyBtn');
 if (spotifyBtn) {
     spotifyBtn.addEventListener('click', function () {
