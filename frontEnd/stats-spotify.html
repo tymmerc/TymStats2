@@ -9,19 +9,18 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body class="spotify-page">
     <header>
       <h1>TymStats</h1>
       <nav>
         <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
         </nav>
       </nav>
     </header>
@@ -40,9 +39,7 @@
       </table>
     </main>
 
-    <footer>
-      &copy; 2025 TymStats | Developed by Tyméo MERCIER
-    </footer>
+    <footer>&copy; 2025 TymStats | Developed by Tyméo MERCIER</footer>
 
     <script>
       let accessToken = localStorage.getItem("spotifyAccessToken");
@@ -63,29 +60,32 @@
       }
 
       function fetchSpotifyData() {
-    const accessToken = Cookies.get('spotifyAccessToken'); // Récupère le token depuis le cookie
+        const accessToken = Cookies.get("spotifyAccessToken"); // Récupère le token depuis le cookie
 
-    if (accessToken) {
-        // Utilisez accessToken pour faire vos requêtes à l'API Spotify
-        fetch('https://api.spotify.com/v1/me/top/tracks', {
+        if (accessToken) {
+          // Utilisez accessToken pour faire vos requêtes à l'API Spotify
+          fetch("https://api.spotify.com/v1/me/top/tracks", {
             headers: {
-                'Authorization': 'Bearer ' + accessToken
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Traitez les données Spotify ici
-            console.log(data);
-        })
-        .catch(error => console.error('Error fetching Spotify data:', error));
-    } else {
-        // Le token n'est pas disponible, redirigez l'utilisateur vers la page de connexion
-        window.location.href = 'index.html'; // Ou l'URL de ta page de connexion
-    }
-}
+              Authorization: "Bearer " + accessToken,
+            },
+          })
+          
+            .then((response) => response.json())
+            .then((data) => {
+              // Traitez les données Spotify ici
+              console.log(data);
+            })
+            .catch((error) =>
+              console.error("Error fetching Spotify data:", error)
+            );
+        } else {
+          // Le token n'est pas disponible, redirigez l'utilisateur vers la page de connexion
+          window.location.href = "index.html"; // Ou l'URL de ta page de connexion
+        }
+      }
 
-// Appelez fetchSpotifyData au chargement de la page ou au moment approprié
-window.addEventListener('DOMContentLoaded', fetchSpotifyData);
+      // Appelez fetchSpotifyData au chargement de la page ou au moment approprié
+      window.addEventListener("DOMContentLoaded", fetchSpotifyData);
       function populateTable(tracks) {
         const tableBody = document.querySelector("#songsTable tbody");
         tableBody.innerHTML = "";
