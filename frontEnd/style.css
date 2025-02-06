@@ -209,3 +209,20 @@ footer p {
 .contact-info p {
     margin: 10px 0;
 }
+
+/* Styles spécifiques à la page Spotify */
+.spotify-page {
+    /* Ajoute ici les styles pour le corps de la page Spotify, par exemple : */
+    background-color: #121212; /* Couleur de fond sombre */
+    color: #fff; /* Couleur de texte claire */
+}
+
+#spotifyChart {
+    /* Ajoute ici les styles pour le graphique, par exemple : */
+    width: 800px; /* Largeur du graphique */
+    height: 400px; /* Hauteur du graphique */
+    margin: 20px auto; /* Centre le graphique */
+    border-radius: 10px; /* Bords arrondis */
+}
+
+/* ... (autres styles CSS pour le tableau, etc.) */
