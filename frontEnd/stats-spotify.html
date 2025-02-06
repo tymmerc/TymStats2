@@ -61,29 +61,31 @@
       }
 
       function fetchSpotifyData() {
-        const accessToken = Cookies.get("spotifyAccessToken"); // Récupère le token depuis le cookie
+            const accessToken = Cookies.get('spotifyAccessToken');
 
-        if (accessToken) {
-          // Utilisez accessToken pour faire vos requêtes à l'API Spotify
-          fetch("https://api.spotify.com/v1/me/top-tracks", {
-            headers: {
-              Authorization: "Bearer " + accessToken,
-            },
-          })
-
-            .then((response) => response.json())
-            .then((data) => {
-              // Traitez les données Spotify ici
-              console.log(data);
-            })
-            .catch((error) =>
-              console.error("Error fetching Spotify data:", error)
-            );
-        } else {
-          // Le token n'est pas disponible, redirigez l'utilisateur vers la page de connexion
-          window.location.href = "index.html"; // Ou l'URL de ta page de connexion
+            if (accessToken) {
+                fetch('https://api.spotify.com/v1/me/top-tracks', {  // URL corrigée
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => {throw new Error(err.error.message)});
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Données Spotify récupérées :", data);
+                    populateTable(data.items);
+                    renderChart(data.items);
+                })
+                .catch(error => console.error('Erreur API Spotify:', error));
+            } else {
+                console.log("Token non trouvé.");
+                window.location.href = "index.html"; // Redirige vers la page de connexion
+            }
         }
-      }
 
       // Appelez fetchSpotifyData au chargement de la page ou au moment approprié
       window.addEventListener("DOMContentLoaded", fetchSpotifyData);
