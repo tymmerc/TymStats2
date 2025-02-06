@@ -20,7 +20,7 @@ const state = btoa(Math.random().toString());
 localStorage.setItem('spotifyAuthState', state);
 console.log('State generated and stored:', state);
 
-const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${spotifyClientId}&response_type=token&redirect_uri=${encodeURIComponent(spotifyRedirectUri)}&scope=${encodeURIComponent(spotifyScopes)}`;
+const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${spotifyClientId}&response_type=code&redirect_uri=${encodeURIComponent(spotifyRedirectUri)}&scope=${encodeURIComponent(spotifyScopes)}&state=${state}`; // Correction de l'URL
 console.log('Auth URL:', spotifyAuthUrl);
 
 //redirect to Spotify auth page
@@ -46,7 +46,7 @@ if (code && returnedState === storedState) {
     console.log('States match, proceeding with token exchange.');
 
     //trade code for access token in backend (on Render)
-    fetch('https://tymstats2-backend.onrender.com/get-token', {
+    fetch('https://tymstats2-backend.onrender.com/get-token', { // Assure-toi que cette URL est correcte
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,15 +55,16 @@ if (code && returnedState === storedState) {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error(`HTTP Error: ${response.status}`);
+            return response.text().then(err => { throw new Error(`HTTP Error: ${response.status} - ${err}`); }); // Meilleure gestion des erreurs
         }
         return response.json();
     })
     .then(data => {
         if (data.access_token) {
-            localStorage.setItem('spotifyAccessToken', data.access_token);
-            console.log('Access token obtained and stored:', data.access_token);
-            window.location.href = 'stats-spotify.html';
+            // Plus besoin de stocker dans le localStorage ici
+
+            console.log('Access token obtained:', data.access_token);
+            window.location.href = 'stats-spotify.html'; // Redirection vers la page de stats (gère le cookie là-bas)
         } else {
             console.error('Token not obtained:', data);
         }
@@ -72,6 +73,8 @@ if (code && returnedState === storedState) {
 } else if (returnedState !== storedState) {
     console.error("State mismatch, possible CSRF attack.");
 }
+
+// ... (Reste de ton code)
 /*
 // League of Legends (Placeholder)
 document.getElementById('lolBtn').addEventListener('click', function () {

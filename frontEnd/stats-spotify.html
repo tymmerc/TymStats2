@@ -9,6 +9,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="style.css">
     
   </head>
   <body class="spotify-page">
@@ -61,24 +62,30 @@
         console.error("No token available to fetch Spotify data.");
       }
 
-      function fetchSpotifyData(accessToken) {
-        fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.items) {
-              populateTable(data.items);
-              renderChart(data.items);
-            } else {
-              console.log("No data available :(");
-            }
-          })
-          .catch((error) => console.error("Error fetching data:", error));
-      }
+      function fetchSpotifyData() {
+    const accessToken = Cookies.get('spotifyAccessToken'); // Récupère le token depuis le cookie
 
+    if (accessToken) {
+        // Utilisez accessToken pour faire vos requêtes à l'API Spotify
+        fetch('https://api.spotify.com/v1/me/top/tracks', {
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Traitez les données Spotify ici
+            console.log(data);
+        })
+        .catch(error => console.error('Error fetching Spotify data:', error));
+    } else {
+        // Le token n'est pas disponible, redirigez l'utilisateur vers la page de connexion
+        window.location.href = 'index.html'; // Ou l'URL de ta page de connexion
+    }
+}
+
+// Appelez fetchSpotifyData au chargement de la page ou au moment approprié
+window.addEventListener('DOMContentLoaded', fetchSpotifyData);
       function populateTable(tracks) {
         const tableBody = document.querySelector("#songsTable tbody");
         tableBody.innerHTML = "";
@@ -120,5 +127,6 @@
         });
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3/dist/js.cookie.min.js"></script>
   </body>
 </html>
