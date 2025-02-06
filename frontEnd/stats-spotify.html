@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="spotify-page">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3/dist/js.cookie.min.js"></script>
     <header>
       <h1>TymStats</h1>
       <nav>
@@ -69,7 +70,7 @@
               Authorization: "Bearer " + accessToken,
             },
           })
-          
+
             .then((response) => response.json())
             .then((data) => {
               // Traitez les données Spotify ici
@@ -127,6 +128,6 @@
         });
       }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3/dist/js.cookie.min.js"></script>
+    
   </body>
 </html>
