@@ -2,31 +2,136 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Spotify Stats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TymStats - Spotify Statistics</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      header {
+        width: 100%;
+        padding: 20px;
+        background-color: #1db954;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #fff;
+      }
+
+      header nav a {
+        text-decoration: none;
+        color: #fff;
+        margin: 0 15px;
+        font-size: 1rem;
+        transition: color 0.3s;
+      }
+
+      header nav a:hover {
+        color: #000;
+      }
+
+      main {
+        padding: 80px 20px 20px;
+        width: 100%;
+        max-width: 1200px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      canvas {
+        margin: 20px auto;
+        max-width: 80%;
+        border-radius: 12px;
+        background-color: #202020;
+        padding: 10px;
+      }
+
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        overflow: hidden;
+      }
+
+      table th,
+      table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #333;
+      }
+
+      table th {
+        background-color: #1db954;
+        color: #fff;
+      }
+
+      footer {
+        margin-top: 30px;
+        color: #aaa;
+        font-size: 0.8rem;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Spotify Statistics</h1>
+    <header>
+      <h1>TymStats</h1>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Spotify</a>
+        <a href="#">League of Legends</a>
+        <a href="#">About</a>
+      </nav>
+    </header>
 
-    <!-- Chart to display statistics -->
-    <canvas id="spotifyChart" width="400" height="200"></canvas>
+    <main>
+      <h2>Spotify Top Tracks</h2>
+      <canvas id="spotifyChart" width="400" height="200"></canvas>
+      <table id="songsTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Popularity</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
 
-    <!-- Table for most listened tracks -->
-    <table id="songsTable" border="1">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Streams Popularity</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <footer>
+      &copy; 2025 TymStats | Developed by Tyméo MERCIER
+    </footer>
 
     <script>
-      // Check if the token is already stored
       let accessToken = localStorage.getItem("spotifyAccessToken");
 
-      // Retrieve a new token from the URL if available
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const newToken = hashParams.get("access_token");
 
@@ -36,14 +141,12 @@
         console.log("Token retrieved and stored:", accessToken);
       }
 
-      // Ensure we have a valid token before fetching Spotify data
       if (accessToken) {
         fetchSpotifyData(accessToken);
       } else {
         console.error("No token available to fetch Spotify data.");
       }
 
-      // Function to fetch Spotify data
       function fetchSpotifyData(accessToken) {
         fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
           headers: {
@@ -62,10 +165,9 @@
           .catch((error) => console.error("Error fetching data:", error));
       }
 
-      // Function to populate the table with top tracks
       function populateTable(tracks) {
         const tableBody = document.querySelector("#songsTable tbody");
-        tableBody.innerHTML = ""; // Clear table before inserting new data
+        tableBody.innerHTML = "";
 
         tracks.forEach((track) => {
           const row = document.createElement("tr");
@@ -74,7 +176,6 @@
         });
       }
 
-      // Function to render a bar chart with track popularity
       function renderChart(tracks) {
         const trackNames = tracks.map((track) => track.name);
         const popularities = tracks.map((track) => track.popularity);
@@ -86,9 +187,11 @@
             labels: trackNames,
             datasets: [
               {
-                label: "Streams Popularity",
+                label: "Popularity",
                 data: popularities,
                 backgroundColor: "rgba(75, 192, 192, 0.5)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
               },
             ],
           },
